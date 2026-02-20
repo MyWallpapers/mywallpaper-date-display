@@ -1,15 +1,16 @@
 {
   "name": "mywallpaper-date-display",
-  "version": "1.3.12",
+  "version": "1.5.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && cp dist/index.js .",
     "dev": "vite build --watch",
     "serve": "npx serve dist --cors -l 5173"
   },
   "devDependencies": {
     "@mywallpaper/sdk-react": "file:../MyWallpaper/packages/sdk-react",
+    "@mywallpaper/vite-plugin": "file:../MyWallpaper/packages/vite-plugin",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
     "typescript": "^5.7.0",
