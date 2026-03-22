@@ -1,7 +1,7 @@
-import { jsxs as V, jsx as B } from "react/jsx-runtime";
-import { useSettings as X, useNetwork as tt, useSettingsActions as et } from "@mywallpaper/sdk-react";
-import { useState as j, useRef as S, useEffect as k, useCallback as nt, useMemo as v } from "react";
-const ot = {
+import { jsxs as P, jsx as E } from "react/jsx-runtime";
+import { useSettings as H, useSettingsActions as G } from "@mywallpaper/sdk-react";
+import { useState as k, useRef as x, useEffect as L, useCallback as J, useMemo as T } from "react";
+const Y = {
   100: "Thin (100)",
   200: "Extra-Light (200)",
   300: "Light (300)",
@@ -11,71 +11,71 @@ const ot = {
   700: "Bold (700)",
   800: "Extra-Bold (800)",
   900: "Black (900)"
-}, st = {
+}, q = {
   normal: "Normal",
   italic: "Italic",
   oblique: "Oblique"
-}, rt = "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday", at = "January,February,March,April,May,June,July,August,September,October,November,December";
+}, Z = "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday", K = "January,February,March,April,May,June,July,August,September,October,November,December";
 function i(t) {
   return t < 10 ? `0${t}` : t.toString();
 }
-function _(t, e) {
-  return new Intl.DateTimeFormat(e, { weekday: "long" }).format(t);
+function R(t, n) {
+  return new Intl.DateTimeFormat(n, { weekday: "long" }).format(t);
 }
-function E(t, e, n = "long") {
-  return new Intl.DateTimeFormat(e, { month: n }).format(t);
+function A(t, n, e = "long") {
+  return new Intl.DateTimeFormat(n, { month: e }).format(t);
 }
-function ct(t, e) {
-  if (e.languageMode === "custom") {
-    const n = (e.customDays || rt).split(",").map((o) => o.trim());
-    return n.length >= 7 ? n[t.getDay()] : _(t, "en");
+function Q(t, n) {
+  if (n.languageMode === "custom") {
+    const e = (n.customDays || Z).split(",").map((o) => o.trim());
+    return e.length >= 7 ? e[t.getDay()] : R(t, "en");
   }
-  return _(t, e.language || "en");
+  return R(t, n.language || "en");
 }
-function it(t, e) {
-  const n = t.getDate(), o = t.getMonth(), s = t.getFullYear(), a = e.languageMode === "custom" ? "en" : e.language || "en", d = e.dateFormat || "long";
-  if (e.languageMode === "custom") {
-    const g = (e.customMonths || at).split(",").map((b) => b.trim()), c = g.length >= 12 ? g[o] : E(t, "en"), f = c.substring(0, 3);
+function V(t, n) {
+  const e = t.getDate(), o = t.getMonth(), s = t.getFullYear(), a = n.languageMode === "custom" ? "en" : n.language || "en", d = n.dateFormat || "long";
+  if (n.languageMode === "custom") {
+    const l = (n.customMonths || K).split(",").map((M) => M.trim()), c = l.length >= 12 ? l[o] : A(t, "en"), g = c.substring(0, 3);
     switch (d) {
       case "long":
-        return `${c} ${n}, ${s}`;
+        return `${c} ${e}, ${s}`;
       case "short":
-        return `${f} ${n}, ${s}`;
+        return `${g} ${e}, ${s}`;
       case "numeric":
-        return `${i(n)}/${i(o + 1)}/${s}`;
+        return `${i(e)}/${i(o + 1)}/${s}`;
       case "numeric-us":
-        return `${i(o + 1)}/${i(n)}/${s}`;
+        return `${i(o + 1)}/${i(e)}/${s}`;
       case "iso":
-        return `${s}-${i(o + 1)}-${i(n)}`;
+        return `${s}-${i(o + 1)}-${i(e)}`;
       case "day-month":
-        return `${n} ${c}`;
+        return `${e} ${c}`;
       case "month-day":
-        return `${c} ${n}`;
+        return `${c} ${e}`;
       default:
-        return `${c} ${n}, ${s}`;
+        return `${c} ${e}, ${s}`;
     }
   }
-  const u = E(t, a, "long"), $ = E(t, a, "short");
+  const u = A(t, a, "long"), m = A(t, a, "short");
   switch (d) {
     case "long":
-      return `${u} ${n}, ${s}`;
+      return `${u} ${e}, ${s}`;
     case "short":
-      return `${$} ${n}, ${s}`;
+      return `${m} ${e}, ${s}`;
     case "numeric":
-      return `${i(n)}/${i(o + 1)}/${s}`;
+      return `${i(e)}/${i(o + 1)}/${s}`;
     case "numeric-us":
-      return `${i(o + 1)}/${i(n)}/${s}`;
+      return `${i(o + 1)}/${i(e)}/${s}`;
     case "iso":
-      return `${s}-${i(o + 1)}-${i(n)}`;
+      return `${s}-${i(o + 1)}-${i(e)}`;
     case "day-month":
-      return `${n} ${u}`;
+      return `${e} ${u}`;
     case "month-day":
-      return `${u} ${n}`;
+      return `${u} ${e}`;
     default:
-      return `${u} ${n}, ${s}`;
+      return `${u} ${e}, ${s}`;
   }
 }
-const lt = {
+const X = {
   thin: "100",
   hairline: "100",
   extralight: "200",
@@ -94,7 +94,7 @@ const lt = {
   ultrabold: "800",
   black: "900",
   heavy: "900"
-}, ut = /* @__PURE__ */ new Set([
+}, tt = /* @__PURE__ */ new Set([
   "inherit",
   "initial",
   "unset",
@@ -105,109 +105,98 @@ const lt = {
   "fantasy",
   "system-ui"
 ]);
-function ft(t) {
-  const e = [], n = t.match(/@font-face\s*\{[^}]+\}/gi) || t.match(/@font-face\s*\{[\s\S]*?\}/gi) || [];
-  for (const o of n) {
+function et(t) {
+  const n = [], e = t.match(/@font-face\s*\{[^}]+\}/gi) || t.match(/@font-face\s*\{[\s\S]*?\}/gi) || [];
+  for (const o of e) {
     const s = o.match(/font-family\s*:\s*(['"]?)([^;'"]+)\1/i);
     if (!s) continue;
     const a = s[2].trim().replace(/^['"]|['"]$/g, "").trim();
-    if (!a || ut.has(a.toLowerCase())) continue;
+    if (!a || tt.has(a.toLowerCase())) continue;
     const d = o.match(/url\(\s*['"]?(https?:\/\/[^'")]+)['"]?\s*\)/i);
     if (!d) continue;
     let u = "400";
-    const $ = o.match(/font-weight\s*:\s*([^;}\s]+)/i);
-    if ($) {
-      const f = $[1].trim().toLowerCase();
-      u = lt[f] || f;
+    const m = o.match(/font-weight\s*:\s*([^;}\s]+)/i);
+    if (m) {
+      const g = m[1].trim().toLowerCase();
+      u = X[g] || g;
     }
-    let g = "normal";
+    let l = "normal";
     const c = o.match(/font-style\s*:\s*([^;}\s]+)/i);
-    c && (g = c[1].trim().toLowerCase()), e.push({ family: a, weight: u, style: g, url: d[1] });
+    c && (l = c[1].trim().toLowerCase()), n.push({ family: a, weight: u, style: l, url: d[1] });
   }
-  return e;
+  return n;
 }
-function mt(t) {
-  const e = { families: [], weights: {}, styles: {} }, n = /* @__PURE__ */ new Set();
+function nt(t) {
+  const n = { families: [], weights: {}, styles: {} }, e = /* @__PURE__ */ new Set();
   for (const { family: o, weight: s, style: a } of t)
-    n.has(o) || (n.add(o), e.families.push(o), e.weights[o] = [], e.styles[o] = []), e.weights[o].includes(s) || e.weights[o].push(s), e.styles[o].includes(a) || e.styles[o].push(a);
-  for (const o of Object.keys(e.weights))
-    e.weights[o].sort((s, a) => parseInt(s) - parseInt(a));
-  return e;
+    e.has(o) || (e.add(o), n.families.push(o), n.weights[o] = [], n.styles[o] = []), n.weights[o].includes(s) || n.weights[o].push(s), n.styles[o].includes(a) || n.styles[o].push(a);
+  for (const o of Object.keys(n.weights))
+    n.weights[o].sort((s, a) => parseInt(s) - parseInt(a));
+  return n;
 }
-function pt() {
-  const t = X(), { fetch: e, requestAccess: n } = tt(), { updateOptions: o } = et(), [s, a] = j(() => /* @__PURE__ */ new Date()), [d, u] = j(null), $ = S(null), g = S(null), c = S([]), f = S(e), b = S(n), M = S(o);
-  f.current = e, b.current = n, M.current = o;
-  const D = S(0), z = typeof e == "function" && typeof n == "function";
-  k(() => {
+function ct() {
+  const t = H(), { updateOptions: n } = G(), [e, o] = k(() => /* @__PURE__ */ new Date()), [s, a] = k(null), d = x(null), u = x(null), m = x([]), l = x(n);
+  l.current = n;
+  const c = x(0);
+  L(() => {
     const r = setInterval(() => {
       const y = /* @__PURE__ */ new Date();
-      y.getDate() !== s.getDate() && a(y);
+      y.getDate() !== e.getDate() && o(y);
     }, 6e4);
     return () => clearInterval(r);
-  }, [s]), k(() => () => {
-    for (const r of c.current) document.fonts.delete(r);
+  }, [e]), L(() => () => {
+    for (const r of m.current) document.fonts.delete(r);
   }, []);
-  const I = nt(
+  const g = J(
     async (r, y) => {
-      if (!r || typeof b.current != "function" || typeof f.current != "function")
-        return;
-      const w = ++D.current;
+      if (!r) return;
+      const $ = ++c.current;
       try {
-        const T = new URL(r).hostname, { granted: K } = await b.current(T, `Load font from ${T}`);
-        if (!K || D.current !== w) return;
-        const O = await f.current(r);
-        if (!O.ok || !O.data || D.current !== w) return;
-        $.current = r;
-        const Q = O.data, R = ft(Q);
-        if (R.length === 0) return;
-        for (const m of c.current) document.fonts.delete(m);
-        c.current = [];
-        const U = /* @__PURE__ */ new Set([T]);
-        for (const m of R) {
-          if (D.current !== w) return;
+        if (c.current !== $) return;
+        const v = await fetch(r);
+        if (!v.ok || c.current !== $) return;
+        d.current = r;
+        const z = await v.text(), D = et(z);
+        if (D.length === 0) return;
+        for (const p of m.current) document.fonts.delete(p);
+        m.current = [];
+        for (const p of D) {
+          if (c.current !== $) return;
           try {
-            const l = new URL(m.url).hostname;
-            if (!U.has(l)) {
-              const { granted: W } = await b.current(l, `Load font file from ${l}`);
-              if (!W) continue;
-              U.add(l);
-            }
-            const x = await f.current(m.url);
-            if (!x.ok || !x.data) continue;
-            const h = x.data;
-            if (!h.base64) continue;
-            const p = Uint8Array.from(atob(h.base64), (W) => W.charCodeAt(0)), F = new FontFace(m.family, p.buffer, {
-              weight: m.weight,
-              style: m.style
+            const h = await fetch(p.url);
+            if (!h.ok) continue;
+            const b = await h.arrayBuffer(), f = new FontFace(p.family, b, {
+              weight: p.weight,
+              style: p.style
             });
-            await F.load(), document.fonts.add(F), c.current.push(F);
+            await f.load(), document.fonts.add(f), m.current.push(f);
           } catch {
           }
         }
-        if (D.current !== w) return;
-        const L = mt(R);
-        g.current = L;
-        const A = L.families[0];
-        if (A && (u(A), !y)) {
-          const m = L.families.map((h) => ({ label: h, value: h }));
-          M.current("customFontFamily", m, A);
-          const l = L.weights[A] || [];
-          if (l.length > 0) {
-            const h = l.map((F) => ({
-              label: ot[F] || `Weight ${F}`,
-              value: F
-            })), p = l.includes("400") ? "400" : l.includes("500") ? "500" : l.includes("600") ? "600" : l[0];
-            M.current("customFontWeight", h, p);
+        if (c.current !== $) return;
+        const F = nt(D);
+        u.current = F;
+        const S = F.families[0];
+        if (S && (a(S), !y)) {
+          const p = F.families.map((f) => ({ label: f, value: f }));
+          l.current("customFontFamily", p, S);
+          const h = F.weights[S] || [];
+          if (h.length > 0) {
+            const f = h.map((I) => ({
+              label: Y[I] || `Weight ${I}`,
+              value: I
+            })), w = h.includes("400") ? "400" : h.includes("500") ? "500" : h.includes("600") ? "600" : h[0];
+            l.current("customFontWeight", f, w);
           }
-          const x = L.styles[A] || [];
-          if (x.length <= 1)
-            M.current("customFontStyle", [{ label: "Normal", value: "normal" }], "normal");
+          const b = F.styles[S] || [];
+          if (b.length <= 1)
+            l.current("customFontStyle", [{ label: "Normal", value: "normal" }], "normal");
           else {
-            const h = x.map((p) => ({
-              label: st[p] || p.charAt(0).toUpperCase() + p.slice(1),
-              value: p
+            const f = b.map((w) => ({
+              label: q[w] || w.charAt(0).toUpperCase() + w.slice(1),
+              value: w
             }));
-            M.current("customFontStyle", h, "normal");
+            l.current("customFontStyle", f, "normal");
           }
         }
       } catch {
@@ -215,35 +204,35 @@ function pt() {
     },
     []
   );
-  k(() => {
-    if ($.current = null, t.fontMode === "custom" && t.customFontUrl) {
+  L(() => {
+    if (d.current = null, t.fontMode === "custom" && t.customFontUrl) {
       let r = t.customFontUrl;
       if (!r.startsWith("http://") && !r.startsWith("https://")) return;
       try {
         if (new URL(r).hostname === "fonts.google.com") {
-          const w = r.match(/family=([^&]+)/);
-          if (w)
-            r = `https://fonts.googleapis.com/css2?family=${w[1]}&display=swap`;
+          const $ = r.match(/family=([^&]+)/);
+          if ($)
+            r = `https://fonts.googleapis.com/css2?family=${$[1]}&display=swap`;
           else
             return;
         }
       } catch {
         return;
       }
-      I(r);
+      g(r);
     } else if (t.fontMode === "preset") {
       const y = `https://fonts.googleapis.com/css2?family=${(t.fontPreset || "Inter").replace(/ /g, "+")}:wght@300;400;500;600;700;800&display=swap`;
-      I(y, !0);
+      g(y, !0);
     } else
-      u(null), g.current = null;
-  }, [t.fontMode, t.fontPreset, t.customFontUrl, z, I]);
-  const P = v(
-    () => ct(s, t),
-    [s, t.languageMode, t.language, t.customDays]
-  ), q = v(
-    () => it(s, t),
-    [s, t.languageMode, t.language, t.customMonths, t.dateFormat]
-  ), N = v(() => t.fontMode === "custom" ? `"${d || t.customFontFamily || "sans-serif"}", sans-serif` : `"${t.fontPreset || "Inter"}", sans-serif`, [t.fontMode, t.fontPreset, t.customFontFamily, d]), H = t.fontMode === "custom" ? t.customFontWeight || t.fontWeight || "600" : t.fontWeight || "600", G = t.fontMode === "custom" && t.customFontStyle || "normal", J = {
+      a(null), u.current = null;
+  }, [t.fontMode, t.fontPreset, t.customFontUrl, g]);
+  const M = T(
+    () => Q(e, t),
+    [e, t.languageMode, t.language, t.customDays]
+  ), B = T(
+    () => V(e, t),
+    [e, t.languageMode, t.language, t.customMonths, t.dateFormat]
+  ), O = T(() => t.fontMode === "custom" ? `"${s || t.customFontFamily || "sans-serif"}", sans-serif` : `"${t.fontPreset || "Inter"}", sans-serif`, [t.fontMode, t.fontPreset, t.customFontFamily, s]), N = t.fontMode === "custom" ? t.customFontWeight || t.fontWeight || "600" : t.fontWeight || "600", C = t.fontMode === "custom" && t.customFontStyle || "normal", U = {
     width: "100%",
     height: "100%",
     display: "flex",
@@ -253,30 +242,30 @@ function pt() {
     padding: 20,
     boxSizing: "border-box",
     overflow: "hidden",
-    fontFamily: N,
+    fontFamily: O,
     textAlign: t.textAlign || "left"
-  }, C = {
-    fontFamily: N,
-    fontWeight: H,
-    fontStyle: G,
+  }, W = {
+    fontFamily: O,
+    fontWeight: N,
+    fontStyle: C,
     color: t.textColor || "#ffffff",
     opacity: (t.textOpacity ?? 100) / 100,
     letterSpacing: `${t.letterSpacing ?? 0}px`,
     textTransform: t.textTransform || "none"
-  }, Y = {
-    ...C,
+  }, j = {
+    ...W,
     fontSize: `${t.dayFontSize || 24}px`,
     marginBottom: 5
-  }, Z = {
-    ...C,
+  }, _ = {
+    ...W,
     fontSize: `${t.dateFontSize || 48}px`,
     lineHeight: 1.1
   };
-  return /* @__PURE__ */ V("div", { style: J, children: [
-    t.showDayOfWeek && /* @__PURE__ */ B("div", { style: Y, children: P }),
-    t.showDate && /* @__PURE__ */ B("div", { style: Z, children: q })
+  return /* @__PURE__ */ P("div", { style: U, children: [
+    t.showDayOfWeek && /* @__PURE__ */ E("div", { style: j, children: M }),
+    t.showDate && /* @__PURE__ */ E("div", { style: _, children: B })
   ] });
 }
 export {
-  pt as default
+  ct as default
 };

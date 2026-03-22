@@ -1,4 +1,4 @@
-import { useSettings, useNetwork, useSettingsActions } from '@mywallpaper/sdk-react'
+import { useSettings, useSettingsActions } from '@mywallpaper/sdk-react'
 import { useState, useEffect, useRef, useMemo, useCallback, type CSSProperties } from 'react'
 
 // ---------------------------------------------------------------------------
@@ -225,7 +225,6 @@ function deriveFontData(entries: FontFaceEntry[]): FontData {
 
 export default function DateDisplay() {
   const settings = useSettings<Settings>()
-  const { fetch: proxyFetch, requestAccess } = useNetwork()
   const { updateOptions } = useSettingsActions()
 
   const [now, setNow] = useState(() => new Date())
@@ -237,16 +236,10 @@ export default function DateDisplay() {
   const fontDataRef = useRef<FontData | null>(null)
   const addedFontsRef = useRef<FontFace[]>([])
 
-  // Store SDK functions in refs to avoid stale closures in async operations.
-  const proxyFetchRef = useRef(proxyFetch)
-  const requestAccessRef = useRef(requestAccess)
   const updateOptionsRef = useRef(updateOptions)
-  proxyFetchRef.current = proxyFetch
-  requestAccessRef.current = requestAccess
   updateOptionsRef.current = updateOptions
 
   const loadIdRef = useRef(0)
-  const sdkReady = typeof proxyFetch === 'function' && typeof requestAccess === 'function'
 
   // -----------------------------------------------------------------------
   // Timer: check every minute, only re-render when the day changes
@@ -273,25 +266,18 @@ export default function DateDisplay() {
   const loadFont = useCallback(
     async (cssUrl: string, skipDropdownUpdate?: boolean) => {
       if (!cssUrl) return
-      if (typeof requestAccessRef.current !== 'function' || typeof proxyFetchRef.current !== 'function') {
-        return
-      }
 
       const myLoadId = ++loadIdRef.current
 
       try {
-        // 1. Fetch the CSS via proxy
-        const cssDomain = new URL(cssUrl).hostname
-        const { granted } = await requestAccessRef.current(cssDomain, `Load font from ${cssDomain}`)
-        if (!granted) return
+        // 1. Fetch the CSS (transparent proxy handles domain allowlist)
         if (loadIdRef.current !== myLoadId) return
-
-        const response = await proxyFetchRef.current(cssUrl)
-        if (!response.ok || !response.data) return
+        const response = await fetch(cssUrl)
+        if (!response.ok) return
         if (loadIdRef.current !== myLoadId) return
 
         loadedFontUrlRef.current = cssUrl
-        const cssText = response.data as string
+        const cssText = await response.text()
 
         // 2. Parse @font-face entries (family, weight, style, URL)
         const entries = parseFontFaces(cssText)
@@ -302,26 +288,14 @@ export default function DateDisplay() {
         addedFontsRef.current = []
 
         // 4. Fetch each font binary and register via FontFace API
-        const seenDomains = new Set<string>([cssDomain])
-
         for (const entry of entries) {
           if (loadIdRef.current !== myLoadId) return
           try {
-            const fileDomain = new URL(entry.url).hostname
-            if (!seenDomains.has(fileDomain)) {
-              const { granted: g } = await requestAccessRef.current(fileDomain, `Load font file from ${fileDomain}`)
-              if (!g) continue
-              seenDomains.add(fileDomain)
-            }
+            const fontResp = await fetch(entry.url)
+            if (!fontResp.ok) continue
 
-            const fontResp = await proxyFetchRef.current(entry.url)
-            if (!fontResp.ok || !fontResp.data) continue
-
-            const fontBin = fontResp.data as { base64: string; contentType: string }
-            if (!fontBin.base64) continue
-
-            const bytes = Uint8Array.from(atob(fontBin.base64), (c) => c.charCodeAt(0))
-            const face = new FontFace(entry.family, bytes.buffer, {
+            const fontBuffer = await fontResp.arrayBuffer()
+            const face = new FontFace(entry.family, fontBuffer, {
               weight: entry.weight,
               style: entry.style,
             })
@@ -416,7 +390,7 @@ export default function DateDisplay() {
       setLoadedFontFamily(null)
       fontDataRef.current = null
     }
-  }, [settings.fontMode, settings.fontPreset, settings.customFontUrl, sdkReady, loadFont])
+  }, [settings.fontMode, settings.fontPreset, settings.customFontUrl, loadFont])
 
   // -----------------------------------------------------------------------
   // Derived values
