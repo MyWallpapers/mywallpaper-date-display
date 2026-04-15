@@ -1,6 +1,6 @@
 {
   "name": "Date Display",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "entry": "index.js",
   "description": "Beautiful date display widget with multi-language support and customizable fonts",
   "author": "MyWallpaper Team",
@@ -27,411 +27,461 @@
   "settings": {
     "_sectionDisplay": {
       "type": "section",
-      "label": "Display Options"
+      "content": {
+        "label": "Display Options"
+      }
     },
     "showDayOfWeek": {
       "type": "boolean",
-      "label": "Show Day of Week",
-      "default": true
+      "content": {
+        "label": "Show Day of Week",
+        "default": true
+      }
     },
     "showDate": {
       "type": "boolean",
-      "label": "Show Date",
-      "default": false
+      "content": {
+        "label": "Show Date",
+        "default": false
+      }
     },
     "dateFormat": {
       "type": "select",
-      "label": "Date Format",
-      "default": "long",
-      "options": [
-        {
-          "label": "Long (January 20, 2026)",
-          "value": "long"
-        },
-        {
-          "label": "Short (Jan 20, 2026)",
-          "value": "short"
-        },
-        {
-          "label": "Numeric (20/01/2026)",
-          "value": "numeric"
-        },
-        {
-          "label": "Numeric US (01/20/2026)",
-          "value": "numeric-us"
-        },
-        {
-          "label": "ISO (2026-01-20)",
-          "value": "iso"
-        },
-        {
-          "label": "Day & Month (20 January)",
-          "value": "day-month"
-        },
-        {
-          "label": "Month & Day (January 20)",
-          "value": "month-day"
+      "content": {
+        "label": "Date Format",
+        "default": "long",
+        "options": [
+          {
+            "label": "Long (January 20, 2026)",
+            "value": "long"
+          },
+          {
+            "label": "Short (Jan 20, 2026)",
+            "value": "short"
+          },
+          {
+            "label": "Numeric (20/01/2026)",
+            "value": "numeric"
+          },
+          {
+            "label": "Numeric US (01/20/2026)",
+            "value": "numeric-us"
+          },
+          {
+            "label": "ISO (2026-01-20)",
+            "value": "iso"
+          },
+          {
+            "label": "Day & Month (20 January)",
+            "value": "day-month"
+          },
+          {
+            "label": "Month & Day (January 20)",
+            "value": "month-day"
+          }
+        ],
+        "showIf": {
+          "setting": "showDate",
+          "equals": true
         }
-      ],
-      "showIf": {
-        "setting": "showDate",
-        "equals": true
       }
     },
     "_sectionLanguage": {
       "type": "section",
-      "label": "Language"
+      "content": {
+        "label": "Language"
+      }
     },
     "languageMode": {
       "type": "select",
-      "label": "Language Mode",
-      "default": "preset",
-      "options": [
-        {
-          "label": "Preset Language",
-          "value": "preset"
-        },
-        {
-          "label": "Custom Names",
-          "value": "custom"
-        }
-      ]
+      "content": {
+        "label": "Language Mode",
+        "default": "preset",
+        "options": [
+          {
+            "label": "Preset Language",
+            "value": "preset"
+          },
+          {
+            "label": "Custom Names",
+            "value": "custom"
+          }
+        ]
+      }
     },
     "language": {
       "type": "select",
-      "label": "Language",
-      "default": "en",
-      "options": [
-        {
-          "label": "English",
-          "value": "en"
-        },
-        {
-          "label": "Français",
-          "value": "fr"
-        },
-        {
-          "label": "Deutsch",
-          "value": "de"
-        },
-        {
-          "label": "Español",
-          "value": "es"
-        },
-        {
-          "label": "Italiano",
-          "value": "it"
-        },
-        {
-          "label": "Português",
-          "value": "pt"
-        },
-        {
-          "label": "日本語",
-          "value": "ja"
-        },
-        {
-          "label": "中文",
-          "value": "zh"
-        },
-        {
-          "label": "한국어",
-          "value": "ko"
-        },
-        {
-          "label": "Русский",
-          "value": "ru"
-        },
-        {
-          "label": "العربية",
-          "value": "ar"
+      "content": {
+        "label": "Language",
+        "default": "en",
+        "options": [
+          {
+            "label": "English",
+            "value": "en"
+          },
+          {
+            "label": "Français",
+            "value": "fr"
+          },
+          {
+            "label": "Deutsch",
+            "value": "de"
+          },
+          {
+            "label": "Español",
+            "value": "es"
+          },
+          {
+            "label": "Italiano",
+            "value": "it"
+          },
+          {
+            "label": "Português",
+            "value": "pt"
+          },
+          {
+            "label": "日本語",
+            "value": "ja"
+          },
+          {
+            "label": "中文",
+            "value": "zh"
+          },
+          {
+            "label": "한국어",
+            "value": "ko"
+          },
+          {
+            "label": "Русский",
+            "value": "ru"
+          },
+          {
+            "label": "العربية",
+            "value": "ar"
+          }
+        ],
+        "showIf": {
+          "setting": "languageMode",
+          "equals": "preset"
         }
-      ],
-      "showIf": {
-        "setting": "languageMode",
-        "equals": "preset"
       }
     },
     "customDays": {
       "type": "string",
-      "label": "Custom Day Names",
-      "description": "Comma-separated: Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-      "default": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
-      "placeholder": "Sunday,Monday,Tuesday,...",
-      "showIf": {
-        "setting": "languageMode",
-        "equals": "custom"
+      "content": {
+        "label": "Custom Day Names",
+        "description": "Comma-separated: Sun,Mon,Tue,Wed,Thu,Fri,Sat",
+        "default": "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",
+        "placeholder": "Sunday,Monday,Tuesday,...",
+        "showIf": {
+          "setting": "languageMode",
+          "equals": "custom"
+        }
       }
     },
     "customMonths": {
       "type": "string",
-      "label": "Custom Month Names",
-      "description": "Comma-separated: Jan,Feb,Mar,...",
-      "default": "January,February,March,April,May,June,July,August,September,October,November,December",
-      "placeholder": "January,February,March,...",
-      "showIf": {
-        "setting": "languageMode",
-        "equals": "custom"
+      "content": {
+        "label": "Custom Month Names",
+        "description": "Comma-separated: Jan,Feb,Mar,...",
+        "default": "January,February,March,April,May,June,July,August,September,October,November,December",
+        "placeholder": "January,February,March,...",
+        "showIf": {
+          "setting": "languageMode",
+          "equals": "custom"
+        }
       }
     },
     "_sectionFont": {
       "type": "section",
-      "label": "Font"
+      "content": {
+        "label": "Font"
+      }
     },
     "fontMode": {
       "type": "select",
-      "label": "Font Source",
-      "default": "custom",
-      "options": [
-        {
-          "label": "Preset Fonts",
-          "value": "preset"
-        },
-        {
-          "label": "Custom URL",
-          "value": "custom"
-        }
-      ]
+      "content": {
+        "label": "Font Source",
+        "default": "custom",
+        "options": [
+          {
+            "label": "Preset Fonts",
+            "value": "preset"
+          },
+          {
+            "label": "Custom URL",
+            "value": "custom"
+          }
+        ]
+      }
     },
     "fontPreset": {
       "type": "select",
-      "label": "Font Family",
-      "default": "Inter",
-      "options": [
-        {
-          "label": "Inter",
-          "value": "Inter"
-        },
-        {
-          "label": "Roboto",
-          "value": "Roboto"
-        },
-        {
-          "label": "Outfit",
-          "value": "Outfit"
-        },
-        {
-          "label": "Poppins",
-          "value": "Poppins"
-        },
-        {
-          "label": "Montserrat",
-          "value": "Montserrat"
-        },
-        {
-          "label": "Open Sans",
-          "value": "Open Sans"
-        },
-        {
-          "label": "Lato",
-          "value": "Lato"
-        },
-        {
-          "label": "Playfair Display",
-          "value": "Playfair Display"
-        },
-        {
-          "label": "Merriweather",
-          "value": "Merriweather"
-        },
-        {
-          "label": "Source Code Pro",
-          "value": "Source Code Pro"
-        },
-        {
-          "label": "JetBrains Mono",
-          "value": "JetBrains Mono"
+      "content": {
+        "label": "Font Family",
+        "default": "Inter",
+        "options": [
+          {
+            "label": "Inter",
+            "value": "Inter"
+          },
+          {
+            "label": "Roboto",
+            "value": "Roboto"
+          },
+          {
+            "label": "Outfit",
+            "value": "Outfit"
+          },
+          {
+            "label": "Poppins",
+            "value": "Poppins"
+          },
+          {
+            "label": "Montserrat",
+            "value": "Montserrat"
+          },
+          {
+            "label": "Open Sans",
+            "value": "Open Sans"
+          },
+          {
+            "label": "Lato",
+            "value": "Lato"
+          },
+          {
+            "label": "Playfair Display",
+            "value": "Playfair Display"
+          },
+          {
+            "label": "Merriweather",
+            "value": "Merriweather"
+          },
+          {
+            "label": "Source Code Pro",
+            "value": "Source Code Pro"
+          },
+          {
+            "label": "JetBrains Mono",
+            "value": "JetBrains Mono"
+          }
+        ],
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "preset"
         }
-      ],
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "preset"
       }
     },
     "customFontUrl": {
       "type": "string",
-      "label": "Custom Font URL",
-      "description": "Google Fonts URL or direct font file URL",
-      "default": "https://fonts.cdnfonts.com/css/anurati",
-      "placeholder": "https://fonts.googleapis.com/css2?family=...",
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "custom"
+      "content": {
+        "label": "Custom Font URL",
+        "description": "Google Fonts URL or direct font file URL",
+        "default": "https://fonts.cdnfonts.com/css/anurati",
+        "placeholder": "https://fonts.googleapis.com/css2?family=...",
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "custom"
+        }
       }
     },
     "customFontFamily": {
       "type": "select",
-      "label": "Custom Font Family",
-      "description": "Select from available fonts (load URL first)",
-      "default": "CustomFont",
-      "options": [
-        {
-          "label": "Custom Font",
-          "value": "CustomFont"
+      "content": {
+        "label": "Custom Font Family",
+        "description": "Select from available fonts (load URL first)",
+        "default": "CustomFont",
+        "options": [
+          {
+            "label": "Custom Font",
+            "value": "CustomFont"
+          }
+        ],
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "custom"
         }
-      ],
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "custom"
       }
     },
     "customFontWeight": {
       "type": "select",
-      "label": "Custom Font Weight",
-      "description": "Available weights for the selected font",
-      "default": "400",
-      "options": [
-        {
-          "label": "Regular (400)",
-          "value": "400"
+      "content": {
+        "label": "Custom Font Weight",
+        "description": "Available weights for the selected font",
+        "default": "400",
+        "options": [
+          {
+            "label": "Regular (400)",
+            "value": "400"
+          }
+        ],
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "custom"
         }
-      ],
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "custom"
       }
     },
     "customFontStyle": {
       "type": "select",
-      "label": "Custom Font Style",
-      "description": "Normal or Italic (if available)",
-      "default": "normal",
-      "options": [
-        {
-          "label": "Normal",
-          "value": "normal"
+      "content": {
+        "label": "Custom Font Style",
+        "description": "Normal or Italic (if available)",
+        "default": "normal",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "normal"
+          }
+        ],
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "custom"
         }
-      ],
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "custom"
       }
     },
     "_sectionStyle": {
       "type": "section",
-      "label": "Style"
+      "content": {
+        "label": "Style"
+      }
     },
     "dayFontSize": {
       "type": "range",
-      "label": "Day of Week Size",
-      "default": 71,
-      "min": 12,
-      "max": 120,
-      "step": 1,
-      "showIf": {
-        "setting": "showDayOfWeek",
-        "equals": true
+      "content": {
+        "label": "Day of Week Size",
+        "default": 71,
+        "min": 12,
+        "max": 120,
+        "step": 1,
+        "showIf": {
+          "setting": "showDayOfWeek",
+          "equals": true
+        }
       }
     },
     "dateFontSize": {
       "type": "range",
-      "label": "Date Size",
-      "default": 48,
-      "min": 12,
-      "max": 200,
-      "step": 1,
-      "showIf": {
-        "setting": "showDate",
-        "equals": true
+      "content": {
+        "label": "Date Size",
+        "default": 48,
+        "min": 12,
+        "max": 200,
+        "step": 1,
+        "showIf": {
+          "setting": "showDate",
+          "equals": true
+        }
       }
     },
     "fontWeight": {
       "type": "select",
-      "label": "Font Weight",
-      "default": "600",
-      "options": [
-        {
-          "label": "Light (300)",
-          "value": "300"
-        },
-        {
-          "label": "Regular (400)",
-          "value": "400"
-        },
-        {
-          "label": "Medium (500)",
-          "value": "500"
-        },
-        {
-          "label": "Semi-Bold (600)",
-          "value": "600"
-        },
-        {
-          "label": "Bold (700)",
-          "value": "700"
-        },
-        {
-          "label": "Extra-Bold (800)",
-          "value": "800"
+      "content": {
+        "label": "Font Weight",
+        "default": "600",
+        "options": [
+          {
+            "label": "Light (300)",
+            "value": "300"
+          },
+          {
+            "label": "Regular (400)",
+            "value": "400"
+          },
+          {
+            "label": "Medium (500)",
+            "value": "500"
+          },
+          {
+            "label": "Semi-Bold (600)",
+            "value": "600"
+          },
+          {
+            "label": "Bold (700)",
+            "value": "700"
+          },
+          {
+            "label": "Extra-Bold (800)",
+            "value": "800"
+          }
+        ],
+        "showIf": {
+          "setting": "fontMode",
+          "equals": "preset"
         }
-      ],
-      "showIf": {
-        "setting": "fontMode",
-        "equals": "preset"
       }
     },
     "textColor": {
       "type": "color",
-      "label": "Text Color",
-      "default": "#ffffff"
+      "content": {
+        "label": "Text Color",
+        "default": "#ffffff"
+      }
     },
     "textAlign": {
       "type": "select",
-      "label": "Text Alignment",
-      "default": "center",
-      "options": [
-        {
-          "label": "Left",
-          "value": "left"
-        },
-        {
-          "label": "Center",
-          "value": "center"
-        },
-        {
-          "label": "Right",
-          "value": "right"
-        }
-      ]
+      "content": {
+        "label": "Text Alignment",
+        "default": "center",
+        "options": [
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Center",
+            "value": "center"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          }
+        ]
+      }
     },
     "textTransform": {
       "type": "select",
-      "label": "Text Case",
-      "default": "uppercase",
-      "options": [
-        {
-          "label": "Normal",
-          "value": "none"
-        },
-        {
-          "label": "UPPERCASE",
-          "value": "uppercase"
-        },
-        {
-          "label": "lowercase",
-          "value": "lowercase"
-        },
-        {
-          "label": "Capitalize",
-          "value": "capitalize"
-        }
-      ]
+      "content": {
+        "label": "Text Case",
+        "default": "uppercase",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "none"
+          },
+          {
+            "label": "UPPERCASE",
+            "value": "uppercase"
+          },
+          {
+            "label": "lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          }
+        ]
+      }
     },
     "textOpacity": {
       "type": "range",
-      "label": "Text Opacity",
-      "default": 100,
-      "min": 0,
-      "max": 100,
-      "step": 1
+      "content": {
+        "label": "Text Opacity",
+        "default": 100,
+        "min": 0,
+        "max": 100,
+        "step": 1
+      }
     },
     "letterSpacing": {
       "type": "range",
-      "label": "Letter Spacing",
-      "default": 30,
-      "min": -5,
-      "max": 50,
-      "step": 0.5
+      "content": {
+        "label": "Letter Spacing",
+        "default": 30,
+        "min": -5,
+        "max": 50,
+        "step": 0.5
+      }
     }
   }
 }
