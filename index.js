@@ -1,6 +1,24 @@
-import { jsxs as P, jsx as E } from "react/jsx-runtime";
-import { useSettings as H, useSettingsActions as G } from "@mywallpaper/sdk-react";
-import { useState as k, useRef as x, useEffect as L, useCallback as J, useMemo as T } from "react";
+const __MYWALLPAPER_WIDGET_RUNTIME_CONTRACT__ = "1";
+if (!__canvasRuntime) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+if (!__canvasRuntime.react || !__canvasRuntime.reactJsxRuntime || !__canvasRuntime.sdkReact || !__canvasRuntime.sdkContracts || !__canvasRuntime.sdkPermissions) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+const __canvasRuntimeReact = __canvasRuntime.react;
+const __canvasRuntimeJsxRuntime = __canvasRuntime.reactJsxRuntime;
+const __canvasRuntimeSdk = __canvasRuntime.sdkReact;
+const __canvasRuntimeSdkContracts = __canvasRuntime.sdkContracts;
+const __canvasRuntimeSdkPermissions = __canvasRuntime.sdkPermissions;
+const P = __canvasRuntimeJsxRuntime.jsxs;
+const E = __canvasRuntimeJsxRuntime.jsx;
+const H = __canvasRuntimeSdk.useSettings;
+const G = __canvasRuntimeSdk.useSettingsActions;
+const k = __canvasRuntimeReact.useState;
+const x = __canvasRuntimeReact.useRef;
+const L = __canvasRuntimeReact.useEffect;
+const J = __canvasRuntimeReact.useCallback;
+const T = __canvasRuntimeReact.useMemo;
 const Y = {
   100: "Thin (100)",
   200: "Extra-Light (200)",
